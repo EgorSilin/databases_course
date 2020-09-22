@@ -1,0 +1,56 @@
+// Урок 11. Практическое задание.
+// 11.2. Практическое задание по теме “NoSQL”
+// 11.2.1. В базе данных Redis подберите коллекцию для подсчета посещений с определенных IP-адресов.
+
+SADD ip '10.0.0.1' '10.0.0.2' '10.0.0.3' '10.0.0.4' '10.0.0.5'
+SMEMBERS ip
+SCARD ip
+
+// 11.2.2. При помощи базы данных Redis решите задачу поиска имени пользователя
+// по электронному адресу и наоборот, поиск электронного адреса пользователя по его имени.
+
+set name@domain.ru name
+get name@domain.ru
+
+set name name@domain.ru
+get name
+
+// 11.2.3. Организуйте хранение категорий и товарных позиций учебной базы данных shop в СУБД MongoDB.
+
+use products
+
+db.products.insert({
+  "name": "prod_name_01",
+  "description": "prod_desc_01",
+  "price": "1000.00",
+  "catalog_id": "Процессоры",
+  "created_at": new Date(),
+  "updated_at": new Date()
+})
+
+db.products.insertMany([
+  {
+    "name": "prod_name_02",
+    "description": "prod_desc_02",
+    "price": "2000.00",
+    "catalog_id": "Процессоры",
+    "created_at": new Date(),
+    "updated_at": new Date()
+  },
+  {
+    "name": "prod_name_03",
+    "description": "prod_desc_03",
+    "price": "3000.00",
+    "catalog_id": "Процессоры",
+    "created_at": new Date(),
+    "updated_at": new Date()
+  }])
+
+db.products.find().pretty()
+db.products.find({name: "prod_name_03"}).pretty()
+
+
+// *** Табл. catalogs ***
+use catalogs
+db.catalogs.insertMany([{"name": "Процессоры"}, {"name": "Мат.платы"}, {"name": "Видеокарты"}])
+db.catalogs.find().pretty()
